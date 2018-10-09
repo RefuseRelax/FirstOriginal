@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title></title>
+	<link rel="stylesheet" th:href="@{/static/css/layui/css/layui.css}"  media="all">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/index.css}">
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="width-limit">
+			<a class="logo" href="">
+				<img th:src="@{/static/image/logo1.png}" alt="Nav logo">
+			</a>
+			<a href="" class="guanzhu">发现</a>
+			<a href="" class="guanzhu">关注</a>
+			<a href="" class="guanzhu">消息</a>
+			<form style="float: left;" class="">
+				<input type="" name="" class="search" placeholder="    搜索">
+			</form>
+			<a class="btn write-btn" target="_blank" href="/toWrite">
+				写文章
+			</a>
+			<a class="btn sign_up" href="">
+				注册
+			</a>
+			<a class="btn log-in" href="/login">
+				登录
+			</a>
+		</div>
+	</nav>
+
+</body>
+</html>

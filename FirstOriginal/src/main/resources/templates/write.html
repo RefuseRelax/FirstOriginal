@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" th:href="@{static/css/layui/css/layui.css}"  media="all">
+	<link rel="stylesheet" th:href="@{static/css/write.css}"  media="all">
+	<!-- <link rel="stylesheet" type="text/css" href="login/layui/css/layui.css"> -->
+</head>
+<body>
+	<div class="header">
+		写文章
+	</div>
+	<div id="rel_div" class="rel_div">
+		    <div class="btn-need" style="color: white;">
+				添加元素
+			</div>
+			<a href="#" class="btn" id="text">文本</a>
+			<a href="#" class="btn" id="image">图片</a>
+			<a href="" class="btn">代码</a>
+	</div>
+
+	<form>
+		<div class="container">
+			<div class="title">
+				<input th:type="text" id="title" placeholder="请输入标题"/>
+			</div>
+
+			<div class="editer" id="editer">
+				<p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+			</div>
+			<div>
+				<div class="uploadImage layui-upload" id="uploadtitle">
+					 <button type="button" class="layui-btn btn" id="test1">上传图片</button>
+					<!-- <button class="btn" id="uploadImg">上传图片</button> -->
+				</div>
+				<div style="text-align: center;">
+					<img class="layui-upload-img" id="demo1">
+				</div>
+			</div>
+		</div>
+		<div class="submitForm">
+			<button class="btn-sub">保存草稿</button>
+			<button class="btn-sub" id="submit">提交</button>
+		</div>
+	</form>
+	<script type="text/javascript" th:src="@{static/js/wangEditor-3.1.1/release/wangEditor.min.js}">
+	</script>
+	<script type="text/javascript">
+		var E = window.wangEditor;
+		var editer = new E("#editer");
+		editer.create();
+		var editerArr = new Array();
+		editerArr.push(editer);
+	</script>
+
+	<!--循环创建富文本编辑-->
+	<script type="text/javascript">
+		var count=1;
+		var f = "editer"+count;
+		$("#image").click(function() {
+			$('.container').append('<div class="uploadImage"><button class="btn">上传图片</button></div>');
+		});
+
+		$("#text").click(function() {
+			$('.container').append('<div id="'+f+'" class="editer"><p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p></div>');
+		    f = new E("#"+f);
+			f.create();
+			editerArr.push(f);
+			count++;
+			f ="editer"+count;
+		});
+
+		$("#uploadImg").click(function(){
+
+		})
+	</script>
+
+    <script th:src="@{sttaitc/layui/layui.js}" charset="utf-8"></script>
+
+	<!--上传图片-->
+	<script type="text/javascript">
+		layui.use('upload', function(){
+	  	var $ = layui.jquery
+	  	,upload = layui.upload;
+	  
+	  //普通图片上传
+	  var uploadInst = upload.render({
+		    elem: '#test1'
+		    // ,url: '#'
+		    ,before: function(obj){
+		      //预读本地文件示例，不支持ie8
+		      obj.preview(function(index, file, result){
+		        $('#demo1').attr('src', result); //图片链接（base64）
+		      });
+		    }
+		    // ,done: function(res){
+		    //   //如果上传失败
+		    //   if(res.code > 0){
+		    //     return layer.msg('上传失败');
+		    //   }
+		    //   //上传成功
+		    // }
+		    // ,error: function(){
+		    //   //演示失败状态，并实现重传
+		    //   var demoText = $('#demoText');
+		    //   demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+		    //   demoText.find('.demo-reload').on('click', function(){
+		    //     uploadInst.upload();
+		    //   });
+		    // }
+	  });
+	});
+	</script>
+
+	<!--提交-->
+	<script type="text/javascript">
+		// var E = window.wangEditor;
+		// var editer = new E("#editer");
+		// editer.create();
+		$("#submit").click(function() {
+			event.preventDefault();
+			// alert(editer.txt.text());
+			var subArr = new Array();
+            subArr.push($("#title").val());
+			var e = $(".container").children("div");
+			for (var i=1; i < e.length; i++) {
+				 var d = e[i].id;
+				 if(d.substring(0,6) == "editer"){
+				 var h = d.substring(6) == ''?0:d.substring(6);
+				 //console.log(h);
+				 //alert(editerArr[h].txt.text());
+				 subArr.push(editerArr[h].txt.text() + "&txt");
+				}
+				// console.log(d);
+			};
+
+			console.log(subArr);
+
+			$.ajax({
+				type:"Post",
+				async: false,
+				url: "/getWrite",
+                traditional: true,
+				data: {
+					"article" :subArr
+				},
+				success:function (d) {
+					// body...
+				}
+			})
+		})
+	</script>
+</body>
+</html>

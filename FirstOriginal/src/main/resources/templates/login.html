@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title></title>
+	<link rel="stylesheet" th:href="@{/static/css/layui/css/layui.css}"  media="all">
+	<!--<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">-->
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/login.css}">
+</head>
+<body>
+	<div class="sign">
+		<div class="logo">
+			<a href="/">
+				<img th:src="@{/static/image/logo1.png}" alt="logo"/>
+			</a>
+		</div>
+		<div class="main" style="margin-top: 150px;">
+			<h4 class="title">
+				<div>
+					<a class="active" href="login" style="color: #000000;border-bottom:solid 3px #000000;padding:10px; font-weight: 700;text-decoration: none;">登录</a>
+					<b>·</b>
+					<a class="sign_in" href="sign" style=" padding:10px;text-decoration: none;">注册</a>
+				</div>
+			</h4>
+
+			<form>
+				<div id="t">
+			      <input type="text" id="username" class="layui-input ccoib" style="border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-right-radius:0px;border-bottom-left-radius:0px;background: #F0F0F0;height: 50px;margin-top: 40px;" placeholder="账号名/邮箱/手机号">
+			    </div>
+				<div>
+					<input type="text" name="" class="layui-input ccoib" style="border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;background: #F0F0F0;margin-bottom: 20px;height: 50px" placeholder="密码" />
+				</div>
+				<div style="float: left;font-size: 16px">
+				   <input type="checkbox" name="" class="remenber_me" />记住我
+				</div>
+				<div style="float: right;font-size: 16px ">
+				   <a href="#" style="text-decoration: none;">登录遇到问题？</a>
+				</div>
+				<div style="clear:both;margin-top: 70px" >
+					<button class="layui-btn layui-btn-fluid" style="background: black; border-radius: 20px;">登录</button>
+				</div>
+
+			</form>
+
+			<div class="more-sign">
+				<h6>
+					社交账号登录
+				</h6>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
